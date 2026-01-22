@@ -1,10 +1,10 @@
-# @howaboua/opencode-workflows-tool
+# Opencode Workflows Tool (aka skills but better)
 
-A workflow-first replacement for OpenCode’s `skill` tool that helps agents capture repeatable SOPs and reuse them across sessions, including a create tool with YAML frontmatter protection.
+An addition to OpenCode’s `skill` tool that helps agents capture repeatable SOPs and reuse them across sessions, including a `workflow-create` tool with YAML frontmatter protection.
 
-## What It Does
+Why? Agents tend to dislike the word “skill". They think they've already got all the skills necessary to perform the task. This plugin reframes that behavior around **workflows/SOPs** and enables agents to create and refine repo-standard-workflows during long-running sessions. Given it's hot-reload, it also works across subagents. If your subagent defines a workflow, it will appear as reusable across all the running sessions/subsessions.
 
-OpenCode agents tend to avoid the word “skill,” even when a process is clearly reusable. This plugin reframes that behavior around **workflows/SOPs** and keeps them visible during long-running sessions.
+Why not global? A bit opinionated, but I believe skills should be global, and carefully selected to be used only by specific agents. Not every skill will apply to every project you're working on.
 
 ## Features
 
