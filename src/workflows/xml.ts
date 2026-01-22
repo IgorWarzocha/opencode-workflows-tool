@@ -19,9 +19,18 @@ export const buildAvailableWorkflowsXml = (workflows: WorkflowDefinition[]) => {
   ].join(" ")
 }
 
-export const formatAvailableWorkflows = (workflows: WorkflowDefinition[]) => {
+type FormatInput = {
+  workflows: WorkflowDefinition[]
+  checkedDirs: string[]
+}
+
+export const formatAvailableWorkflows = ({ workflows, checkedDirs }: FormatInput) => {
   if (workflows.length === 0) {
-    return "No workflows are currently available in .opencode/workflows."
+    return [
+      "No workflows are currently available in .opencode/workflows.",
+      "Checked paths:",
+      ...checkedDirs.map((dir) => `- ${dir}`),
+    ].join("\n")
   }
 
   return ["Available workflows:", buildAvailableWorkflowsXml(workflows)].join("\n\n")

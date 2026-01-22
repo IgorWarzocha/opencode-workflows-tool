@@ -19,7 +19,8 @@
   "scripts": {
     "build": "bun build src/index.ts --outdir dist --target bun --sourcemap && tsc --emitDeclarationOnly",
     "dev": "bun --watch src/index.ts",
-    "prepublishOnly": "bun run build"
+    "prepublishOnly": "bun run build",
+    "workflow:dry-run": "bun run scripts/workflows-dry-run.ts"
   },
   "peerDependencies": {
     "@opencode-ai/plugin": "^1.1.0"

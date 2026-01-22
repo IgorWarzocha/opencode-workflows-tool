@@ -7,3 +7,14 @@ export type WorkflowDefinition = {
   description: string
   location: string
 }
+
+export type WorkflowDiscoveryResult = {
+  workflows: WorkflowDefinition[]
+  checkedDirs: string[]
+}
+
+export type WorkflowLogContext = {
+  sessionID: string
+  directory: string
+  worktree: string
+}

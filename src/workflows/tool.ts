@@ -6,6 +6,7 @@ import { tool } from "@opencode-ai/plugin"
 
 import { buildWorkflowToolDescription } from "./description"
 import { discoverWorkflows } from "./discovery"
+import { ensureWorkflowLog, logWorkflowDiscovery } from "./logger"
 import { formatAvailableWorkflows } from "./xml"
 
 type WorkflowToolInput = {
@@ -23,13 +24,15 @@ export const createWorkflowTool = ({ directory, worktree }: WorkflowToolInput) =
         .describe("Workflow identifier from available_workflows (omit to list available workflows)"),
     },
     async execute(args, context) {
-      const workflows = await discoverWorkflows({ directory, worktree })
-      if (!args.workflow) return formatAvailableWorkflows(workflows)
+      await ensureWorkflowLog({ sessionID: context.sessionID, directory, worktree })
+      const discovery = await discoverWorkflows({ directory, worktree })
+      await logWorkflowDiscovery({ sessionID: context.sessionID, directory, worktree }, discovery)
+      if (!args.workflow) return formatAvailableWorkflows(discovery)
 
-      const workflow = workflows.find((item) => item.name === args.workflow)
+      const workflow = discovery.workflows.find((item) => item.name === args.workflow)
 
       if (!workflow) {
-        const available = workflows.map((item) => item.name).join(", ")
+        const available = discovery.workflows.map((item) => item.name).join(", ")
         throw new Error(`Workflow "${args.workflow}" not found. Available workflows: ${available || "none"}`)
       }
 

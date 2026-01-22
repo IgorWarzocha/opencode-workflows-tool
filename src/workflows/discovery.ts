@@ -5,7 +5,7 @@ It reads frontmatter and returns structured workflow definitions.
 import path from "path"
 
 import { parseWorkflowFrontmatter } from "./frontmatter"
-import type { WorkflowDefinition } from "./types"
+import type { WorkflowDefinition, WorkflowDiscoveryResult } from "./types"
 
 const WORKFLOW_GLOB = new Bun.Glob("**/WORKFLOW.md")
 
@@ -15,11 +15,20 @@ type DiscoveryInput = {
 }
 
 const buildSearchRoots = ({ directory, worktree }: DiscoveryInput) => {
-  return Array.from(new Set([worktree, directory]))
+  const roots = [worktree, directory, process.cwd()]
+  for (const candidate of [directory, worktree, process.cwd()]) {
+    if (!candidate) continue
+    if (path.basename(candidate) === ".opencode") {
+      roots.push(path.dirname(candidate))
+    }
+  }
+
+  return Array.from(new Set(roots.filter(Boolean)))
 }
 
-export const discoverWorkflows = async (input: DiscoveryInput) => {
+export const discoverWorkflows = async (input: DiscoveryInput): Promise<WorkflowDiscoveryResult> => {
   const workflows: WorkflowDefinition[] = []
+  const checkedDirs: string[] = []
 
   const addWorkflow = async (filePath: string) => {
     try {
@@ -35,10 +44,8 @@ export const discoverWorkflows = async (input: DiscoveryInput) => {
 
   for (const root of buildSearchRoots(input)) {
     const workflowsDir = path.join(root, ".opencode", "workflows")
+    checkedDirs.push(workflowsDir)
     try {
-      const exists = await Bun.file(workflowsDir).exists()
-      if (!exists) continue
-
       const matches = await Array.fromAsync(
         WORKFLOW_GLOB.scan({ cwd: workflowsDir, absolute: true, onlyFiles: true, followSymlinks: true }),
       )
@@ -49,5 +56,5 @@ export const discoverWorkflows = async (input: DiscoveryInput) => {
     }
   }
 
-  return workflows
+  return { workflows, checkedDirs }
 }
