@@ -4,7 +4,7 @@ An addition to OpenCode’s `skill` tool that helps agents capture repeatable SO
 
 Why? Agents tend to dislike the word “skill". They think they've already got all the skills necessary to perform the task. This plugin reframes that behavior around **workflows/SOPs** and enables agents to create and refine repo-standard-workflows during long-running sessions. Given it's hot-reload, it also works across subagents. If your subagent defines a workflow, it will appear as reusable across all the running sessions/subsessions.
 
-Why not global? A bit opinionated, but I believe skills should be global, and carefully selected to be used only by specific agents. Not every skill will apply to every project you're working on.
+Why not global? A bit opinionated, but I believe *skills* should be global, and carefully selected to be used *only* by specific agents to avoid context rot. And not every skill will apply to every project you're working on.
 
 ## Features
 
@@ -13,6 +13,8 @@ Why not global? A bit opinionated, but I believe skills should be global, and ca
 - **Workflow creation**: `workflows.create` writes new workflows from structured name/body input
 - **System prompt injection**: Always exposes `<available_workflows>` to the main agent and subagents
 - **Hot reload friendly**: New workflows are discoverable immediately during ongoing sessions
+
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/635cc97b-a7f7-496e-97fe-6b7d83c536ae" />
 
 ## Installation
 
