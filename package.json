@@ -1,0 +1,44 @@
+{
+  "name": "@howaboua/opencode-skill-tool-enhanced",
+  "version": "0.0.1",
+  "description": "Enhanced skill tool plugin for OpenCode - 1:1 clone of built-in skill tool with extensibility",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target bun --sourcemap && tsc --emitDeclarationOnly",
+    "dev": "bun --watch src/index.ts",
+    "prepublishOnly": "bun run build"
+  },
+  "peerDependencies": {
+    "@opencode-ai/plugin": "^1.1.0"
+  },
+  "devDependencies": {
+    "@opencode-ai/plugin": "^1.1.0",
+    "@types/bun": "latest"
+  },
+  "keywords": [
+    "opencode",
+    "plugin",
+    "skill",
+    "tool",
+    "enhanced"
+  ],
+  "author": "Igor Warzocha <igorwarzocha@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IgorWarzocha/opencode-plugins-dev"
+  }
+}
