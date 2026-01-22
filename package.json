@@ -43,6 +43,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/IgorWarzocha/opencode-plugins-dev"
-  }
+    "url": "git+https://github.com/IgorWarzocha/opencode-workflows-tool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IgorWarzocha/opencode-workflows-tool/issues"
+  },
+  "homepage": "https://github.com/IgorWarzocha/opencode-workflows-tool#readme"
 }
