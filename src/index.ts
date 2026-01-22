@@ -11,7 +11,7 @@ export const SkillToolEnhancedPlugin: Plugin = async (input) => {
     ...createWorkflowSystemHook({ directory: input.directory, worktree: input.worktree }),
     tool: {
       workflows: createWorkflowTool({ directory: input.directory, worktree: input.worktree }),
-      "workflows.create": createWorkflowCreateTool({ directory: input.directory, worktree: input.worktree }),
+      workflows_create: createWorkflowCreateTool({ directory: input.directory, worktree: input.worktree }),
     },
   }
 }

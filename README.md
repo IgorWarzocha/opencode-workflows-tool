@@ -8,9 +8,9 @@ Why not global? A bit opinionated, but I believe *skills* should be global, and 
 
 ## Features
 
-- **Tools exposed**: `workflows` and `workflows.create` for listing, loading, and creating SOPs
+- **Tools exposed**: `workflows` and `workflows_create` for listing, loading, and creating SOPs
 - **Workflow discovery**: Scans `.opencode/workflows/**/WORKFLOW.md` in the current repo
-- **Workflow creation**: `workflows.create` writes new workflows from structured name/body input
+- **Workflow creation**: `workflows_create` writes new workflows from structured name/body input
 - **System prompt injection**: Always exposes `<available_workflows>` to the main agent and subagents
 - **Hot reload friendly**: New workflows are discoverable immediately during ongoing sessions
 
@@ -51,7 +51,7 @@ Use the workflows tool with workflow: "release-checklist".
 Create a new workflow after a successful, repeatable process:
 
 ```
-Use workflows.create with name: "release-checklist" and body containing the SOP steps.
+Use workflows_create with name: "release-checklist" and body containing the SOP steps.
 ```
 
 ## Development

@@ -1,6 +1,6 @@
 {
   "name": "@howaboua/opencode-workflows-tool",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Enhanced skill tool plugin for OpenCode - 1:1 clone of built-in skill tool with extensibility",
   "type": "module",
   "main": "dist/index.js",
@@ -48,5 +48,8 @@
   "bugs": {
     "url": "https://github.com/IgorWarzocha/opencode-workflows-tool/issues"
   },
-  "homepage": "https://github.com/IgorWarzocha/opencode-workflows-tool#readme"
+  "homepage": "https://github.com/IgorWarzocha/opencode-workflows-tool#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }
