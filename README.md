@@ -1,4 +1,4 @@
-# @igorwow/opencode-skill-tool-enhanced
+# @howaboua/opencode-skill-tool-enhanced
 
 A 1:1 clone of OpenCode's built-in `skill` tool, implemented as a plugin for full control and extensibility.
 
@@ -25,14 +25,14 @@ Add to your `.opencode/opencode.jsonc`:
 Or install via npm (after publishing):
 
 ```bash
-bun add @igorwow/opencode-skill-tool-enhanced --exact
+bun add @howaboua/opencode-skill-tool-enhanced --exact
 ```
 
 Then add to config:
 
 ```jsonc
 {
-  "plugin": ["@igorwow/opencode-skill-tool-enhanced"],
+  "plugin": ["@howaboua/opencode-skill-tool-enhanced"],
 }
 ```
 
