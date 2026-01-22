@@ -1,47 +1,55 @@
-# @howaboua/opencode-skill-tool-enhanced
+# @howaboua/opencode-workflows-tool
 
-A 1:1 clone of OpenCode's built-in `skill` tool, implemented as a plugin for full control and extensibility.
+A workflow-first replacement for OpenCode’s `skill` tool that helps agents capture repeatable SOPs and reuse them across sessions, including a create tool with YAML frontmatter protection.
+
+## What It Does
+
+OpenCode agents tend to avoid the word “skill,” even when a process is clearly reusable. This plugin reframes that behavior around **workflows/SOPs** and keeps them visible during long-running sessions.
 
 ## Features
 
-- **Shadow tool**: Replaces the built-in `skill` tool completely
-- **Filesystem scanning**: Automatically discovers skills from:
-  - `.opencode/skill/**/SKILL.md` (project-level)
-  - `.claude/skills/**/SKILL.md` (Claude-compatible)
-  - `~/.claude/skills/**/SKILL.md` (global)
-- **Dynamic tool description**: Builds tool description at load time with actual available skills
-- **Full extensibility**: Modify and extend behavior since you control the code
+- **Tools exposed**: `workflows` and `workflows.create` for listing, loading, and creating SOPs
+- **Workflow discovery**: Scans `.opencode/workflows/**/WORKFLOW.md` in the current repo
+- **Workflow creation**: `workflows.create` writes new workflows from structured name/body input
+- **System prompt injection**: Always exposes `<available_workflows>` to the main agent and subagents
+- **Hot reload friendly**: New workflows are discoverable immediately during ongoing sessions
 
 ## Installation
 
-Add to your `.opencode/opencode.jsonc`:
+Add to your repo `opencode.json` or `.opencode/opencode.jsonc` (preferred):
 
 ```jsonc
 {
-  "plugin": ["file:///path/to/opencode-plugins-dev/opencode-skill-tool-enhanced/src/index.ts"],
+  "plugin": ["@howaboua/opencode-workflows-tool@latest"],
 }
 ```
 
-Or install via npm (after publishing):
-
-```bash
-bun add @howaboua/opencode-skill-tool-enhanced --exact
-```
-
-Then add to config:
+Or reference a local plugin file:
 
 ```jsonc
 {
-  "plugin": ["@howaboua/opencode-skill-tool-enhanced"],
+  "plugin": ["file:///absolute/path/to/your/plugin/src/index.ts"],
 }
 ```
 
 ## Usage
 
-The plugin provides a `skill` tool that works exactly like the built-in one:
+List available workflows:
 
 ```
-Use the skill tool to load the create-opencode-plugin skill
+Use the workflows tool with no arguments to list available workflows.
+```
+
+Load a workflow:
+
+```
+Use the workflows tool with workflow: "release-checklist".
+```
+
+Create a new workflow after a successful, repeatable process:
+
+```
+Use workflows.create with name: "release-checklist" and body containing the SOP steps.
 ```
 
 ## Development
