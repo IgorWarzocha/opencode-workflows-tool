@@ -6,7 +6,6 @@ import { tool } from "@opencode-ai/plugin"
 
 import { buildWorkflowToolDescription } from "./description"
 import { discoverWorkflows } from "./discovery"
-import { ensureWorkflowLog, logWorkflowDiscovery } from "./logger"
 import { formatAvailableWorkflows } from "./xml"
 
 type WorkflowToolInput = {
@@ -24,9 +23,7 @@ export const createWorkflowTool = ({ directory, worktree }: WorkflowToolInput) =
         .describe("Workflow identifier from available_workflows (omit to list available workflows)"),
     },
     async execute(args, context) {
-      await ensureWorkflowLog({ sessionID: context.sessionID, directory, worktree })
       const discovery = await discoverWorkflows({ directory, worktree })
-      await logWorkflowDiscovery({ sessionID: context.sessionID, directory, worktree }, discovery)
       if (!args.workflow) return formatAvailableWorkflows(discovery)
 
       const workflow = discovery.workflows.find((item) => item.name === args.workflow)

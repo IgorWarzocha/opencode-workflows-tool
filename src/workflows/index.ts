@@ -4,7 +4,6 @@ It keeps exports explicit and centralized for easier maintenance.
 */
 export { discoverWorkflows } from "./discovery"
 export { createWorkflowCreateTool } from "./create"
-export { ensureWorkflowLog, logWorkflowDiscovery } from "./logger"
 export { createWorkflowSystemHook } from "./system"
 export { createWorkflowTool } from "./tool"
 export type { WorkflowDefinition } from "./types"
