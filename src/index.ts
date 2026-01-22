@@ -4,14 +4,12 @@ It wires workflow discovery into the tool definition exported to OpenCode.
 */
 import type { Plugin } from "@opencode-ai/plugin"
 
-import { createWorkflowTool, discoverWorkflows } from "./workflows"
+import { createWorkflowTool } from "./workflows"
 
 export const SkillToolEnhancedPlugin: Plugin = async (input) => {
-  const workflows = await discoverWorkflows({ directory: input.directory, worktree: input.worktree })
-
   return {
     tool: {
-      workflows: createWorkflowTool({ workflows }),
+      workflows: createWorkflowTool({ directory: input.directory, worktree: input.worktree }),
     },
   }
 }

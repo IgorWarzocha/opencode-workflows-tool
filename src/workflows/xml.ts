@@ -18,3 +18,11 @@ export const buildAvailableWorkflowsXml = (workflows: WorkflowDefinition[]) => {
     "</available_workflows>",
   ].join(" ")
 }
+
+export const formatAvailableWorkflows = (workflows: WorkflowDefinition[]) => {
+  if (workflows.length === 0) {
+    return "No workflows are currently available in .opencode/workflows."
+  }
+
+  return ["Available workflows:", buildAvailableWorkflowsXml(workflows)].join("\n\n")
+}
