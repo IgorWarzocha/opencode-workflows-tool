@@ -22,15 +22,6 @@ const slugify = (value: string) => {
     .replace(/-+/g, "-")
 }
 
-const pickDescription = (body: string, fallback: string) => {
-  const lines = body
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter(Boolean)
-
-  return lines[0] ? lines[0].slice(0, 120) : fallback
-}
-
 const resolveRoot = (directory: string, worktree: string) => {
   const candidate = worktree || directory || process.cwd()
   return path.basename(candidate) === ".opencode" ? path.dirname(candidate) : candidate
@@ -49,8 +40,9 @@ export const createWorkflowCreateTool = ({ directory, worktree }: CreateWorkflow
   return tool({
     description: buildWorkflowCreateDescription(),
     args: {
-      name: tool.schema.string().describe("Workflow name to save"),
-      body: tool.schema.string().describe("Workflow content in markdown"),
+      name: tool.schema.string().describe("Workflow name"),
+      description: tool.schema.string().describe("Short plain-text summary (5-10 words)"),
+      body: tool.schema.string().describe("Markdown content"),
     },
     async execute(args, context) {
       const root = resolveRoot(directory, worktree)
@@ -59,8 +51,7 @@ export const createWorkflowCreateTool = ({ directory, worktree }: CreateWorkflow
       const workflowDir = path.join(root, ".opencode", "workflows", safeName)
       const workflowPath = path.join(workflowDir, "WORKFLOW.md")
       const cleanedBody = stripFrontmatter(args.body)
-      const description = pickDescription(cleanedBody, args.name)
-      const content = buildWorkflowFile(args.name, description, cleanedBody)
+      const content = buildWorkflowFile(args.name, args.description, cleanedBody)
 
       await Bun.$`mkdir -p ${workflowDir}`
       await Bun.write(workflowPath, content)

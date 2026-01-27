@@ -2,28 +2,30 @@
 
 ## Repository Overview
 
-OpenCode plugin that provides an enhanced `skill` tool, replacing the built-in with a filesystem-scanning implementation for full extensibility. Discovers skills from `.opencode/skill/`, `.claude/skills/`, and global `~/.claude/skills/` directories.
+Enhanced `workflows` plugin for OpenCode, enabling structured SOP discovery and creation. Replaces the built-in skill/workflow system with a filesystem-backed implementation scanning `.opencode/workflows/`.
 
 <instructions>
 
 ## Build & Verification
 
-- Build: `bun run build`
 - Typecheck: `tsc --noEmit`
-- Development watch: `bun run dev` (USER runs this in background)
+- Build: `bun run build`
+- Dry Run: `bun run workflow:dry-run`
+- **MANDATORY**: Verify all changes with `tsc --noEmit` before completion.
 
 ## Plugin Architecture
 
-- Entry point: `src/index.ts`
-- Exports: `SkillToolEnhancedPlugin` function implementing the `Plugin` interface
-- Build output: `dist/index.js` (runtime) + `dist/index.d.ts` (types)
+- **Entry**: `src/index.ts` (exports `SkillToolEnhancedPlugin`)
+- **Tools**: `workflows` (listing/reading) and `workflows_create` (authoring)
+- **Logic**: Contained in `src/workflows.ts` (discovery, parsing, writing)
+- **Output**: `dist/index.js` (runtime) and `dist/index.d.ts` (types)
 
-## Testing Changes
+## Development Flow
 
-1. Edit `src/index.ts`
-2. Run `bun run build` to rebuild
-3. Restart OpenCode to reload the plugin
-4. Plugin logs loaded skills to console on startup
+1. Modify `src/*.ts` logic.
+2. Run `bun run build` to update `dist/`.
+3. Test locally using `bun run workflow:dry-run` if applicable.
+4. Restart OpenCode to apply changes.
 
 </instructions>
 
@@ -31,25 +33,16 @@ OpenCode plugin that provides an enhanced `skill` tool, replacing the built-in w
 
 ## Process Constraints
 
-- MUST NOT run `bun run dev` or other long-running processes
-- Dev servers and watch modes are USER's responsibility
-- MUST use one-shot commands: `bun run build`, `tsc --noEmit`
+- MUST NOT run `bun run dev` or any long-running/blocking process.
+- MUST use one-shot verification: `tsc --noEmit` or `bun run build`.
+- MUST NOT modify `dist/` directly; always rebuild from `src/`.
 
 ## Code Conventions
 
-- TypeScript strict mode enabled
-- Use `@opencode-ai/plugin` API for tool definitions
-- Async plugin functions return `{ tool: { toolName: tool(...) } }`
-- Scan paths at plugin load time, not per-execution
-- Gracefully handle missing files/directories with try-catch
-
-## Skill Discovery
-
-Skills are YAML frontmatter in `SKILL.md` files:
-- Scanned from `.opencode/{skill,skills}/**/SKILL.md`
-- Scanned from `.claude/skills/**/SKILL.md` (project and ancestral)
-- Scanned from `~/.claude/skills/**/SKILL.md` (global)
-- Frontmatter must include `name:` and `description:` fields
+- **TypeScript**: Strict mode enabled. Use explicit types for plugin exports.
+- **Errors**: MUST use `try-catch` blocks for all filesystem operations.
+- **Workflows**: Stored as Markdown in `.opencode/workflows/`.
+- **API**: Follow `@opencode-ai/plugin` interface strictly.
 
 </rules>
 
@@ -57,12 +50,9 @@ Skills are YAML frontmatter in `SKILL.md` files:
 
 ## Context Allocation
 
-- **node_modules/**: Skip - standard dependencies
-- **dist/**: Build output, regenerate with `bun run build`
-
-## Critical Configs
-
-- `package.json`: Build script runs `bun build` then `tsc` for types
-- `tsconfig.json`: Strict TypeScript, ESNext target, bundler module resolution
+- **scripts/**: Contains verification and dry-run utilities.
+- **src/workflows.ts**: Core logic for the workflow system.
+- **.opencode/workflows/**: Target directory for workflow storage.
 
 </context_hints>
+
