@@ -18,11 +18,14 @@ type GlobalConfig = {
   command?: Record<string, CommandConfig>
 }
 
+const WORKFLOW_COMMAND_HANDLED = "__WORKFLOW_COMMAND_HANDLED__"
+
 export function createWorkflowCommandHooks(options: {
   client: WorkflowClient
 }): Pick<Hooks, "command.execute.before" | "config"> {
   return {
     config: async (input) => {
+      if (!input || typeof input !== "object") return
       const config = input as GlobalConfig
       config.command ??= {}
       config.command["workflow"] = {
@@ -34,12 +37,10 @@ export function createWorkflowCommandHooks(options: {
     "command.execute.before": async (input) => {
       if (input.command !== "workflow") return
 
-      // We handle the command by sending the instruction prompt to the session.
-      // This mimics the /learn behavior where the model receives the prompt to act on.
       await options.client.session.prompt({
         path: { id: input.sessionID },
         body: {
-          noReply: false, // We want the model to reply to these instructions
+          noReply: false,
           parts: [
             {
               type: "text",
@@ -49,8 +50,7 @@ export function createWorkflowCommandHooks(options: {
         },
       })
 
-      // Throwing an error "swallows" the command so the core system doesn't process it further.
-      throw new Error("__WORKFLOW_COMMAND_HANDLED__")
+      throw new Error(WORKFLOW_COMMAND_HANDLED)
     },
   }
 }
