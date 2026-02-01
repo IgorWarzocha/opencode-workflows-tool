@@ -2,6 +2,7 @@
 This module defines the create workflow tool for programmatic SOP creation.
 It writes new workflow markdown files with generated frontmatter.
 */
+import { mkdir } from "fs/promises"
 import path from "path"
 
 import { tool } from "@opencode-ai/plugin"
@@ -53,7 +54,7 @@ export const createWorkflowCreateTool = ({ directory, worktree }: CreateWorkflow
       const cleanedBody = stripFrontmatter(args.body)
       const content = buildWorkflowFile(args.name, args.description, cleanedBody)
 
-      await Bun.$`mkdir -p ${workflowDir}`
+      await mkdir(workflowDir, { recursive: true })
       await Bun.write(workflowPath, content)
 
       context.metadata({
