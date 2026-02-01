@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "@igorwow/opencode-skill-tool-enhanced",
+      "name": "@howaboua/opencode-workflows-tool",
       "dependencies": {
         "typescript": "^5.9.3",
       },
