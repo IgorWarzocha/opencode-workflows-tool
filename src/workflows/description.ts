@@ -1,5 +1,5 @@
 /*
-This module builds the tool description for workflow discovery and loading.
+This module builds the tool descriptions for the workflow tools.
 It keeps the copy aligned with repo SOP and workflow usage.
 */
 export const buildWorkflowToolDescription = () => {
@@ -18,5 +18,14 @@ export const buildWorkflowCreateDescription = () => {
     "You MAY include troubleshooting notes if failures occurred.",
     "If a workflow fails, you MUST surgically edit it and provide failure scenarios.",
     "It is stored in .opencode/workflows.",
+  ].join(" ");
+};
+
+
+export const buildWorkflowLearnDescription = () => {
+  return [
+    "Create or append to an AGENTS.md file in a target directory to enforce specific workflow usage.",
+    "This command helps the model remember which workflow to load when operating in specific project subdirectories.",
+    "The rule added will state: 'When operating in this directory you MUST load [workflow] workflow'.",
   ].join(" ");
 };

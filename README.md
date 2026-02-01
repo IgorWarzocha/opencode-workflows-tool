@@ -8,10 +8,12 @@ Why not global? A bit opinionated, but I believe *skills* should be global, and 
 
 ## Features
 
+- **Slash Command**: `/workflow` to automatically document a session as an SOP and associate it with a directory via `AGENTS.md`
 - **Tools exposed**: `workflows` and `workflows_create` for listing, loading, and creating SOPs
 - **Workflow discovery**: Scans `.opencode/workflows/**/WORKFLOW.md` in the current repo
 - **Workflow creation**: `workflows_create` writes new workflows from structured name/body input
 - **System prompt injection**: Always exposes `<available_workflows>` to the main agent and subagents
+- **Nested context**: Supports directory-specific workflow suggestions via auto-loaded `AGENTS.md` files
 - **Hot reload friendly**: New workflows are discoverable immediately during ongoing sessions
 
 <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/635cc97b-a7f7-496e-97fe-6b7d83c536ae" />
@@ -36,6 +38,16 @@ Or reference a local plugin file:
 
 ## Usage
 
+### Slash Command
+
+The `/workflow` command is the fastest way to capture work. It instructs the model to analyze the current session, document it using `workflows_create`, and suggest the new workflow to future agents by adding a rule to a nested `AGENTS.md`.
+
+```
+/workflow
+```
+
+### Tools
+
 List available workflows:
 
 ```
@@ -48,7 +60,7 @@ Load a workflow:
 Use the workflows tool with workflow: "release-checklist".
 ```
 
-Create a new workflow after a successful, repeatable process:
+Create a new workflow manually:
 
 ```
 Use workflows_create with name: "release-checklist" and body containing the SOP steps.

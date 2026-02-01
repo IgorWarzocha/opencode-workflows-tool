@@ -4,14 +4,20 @@ It wires workflow discovery into the tool definition exported to OpenCode.
 */
 import type { Plugin } from "@opencode-ai/plugin"
 
-import { createWorkflowCreateTool, createWorkflowSystemHook, createWorkflowTool } from "./workflows"
+import { createWorkflowCreateTool, createWorkflowSystemHook, createWorkflowTool, createWorkflowCommandHooks } from "./workflows"
 
 export const SkillToolEnhancedPlugin: Plugin = async (input) => {
+  const { client, directory, worktree } = input
+
+  const commandHooks = createWorkflowCommandHooks({ client })
+
   return {
-    ...createWorkflowSystemHook({ directory: input.directory, worktree: input.worktree }),
+    ...createWorkflowSystemHook({ directory, worktree }),
+    config: commandHooks.config,
+    "command.execute.before": commandHooks["command.execute.before"],
     tool: {
-      workflows: createWorkflowTool({ directory: input.directory, worktree: input.worktree }),
-      workflows_create: createWorkflowCreateTool({ directory: input.directory, worktree: input.worktree }),
+      workflows: createWorkflowTool({ directory, worktree }),
+      workflows_create: createWorkflowCreateTool({ directory, worktree }),
     },
   }
 }
