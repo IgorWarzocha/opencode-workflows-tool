@@ -8,6 +8,7 @@ Why not global? A bit opinionated, but I believe *skills* should be global, and 
 
 ## Features
 
+- **Bundled Skill**: Ships with a `workflows` skill that teaches agents when and how to use workflows effectively
 - **Slash Command**: `/workflow` to automatically document a session as an SOP and associate it with a directory via `AGENTS.md`
 - **Tools exposed**: `workflows` and `workflows_create` for listing, loading, and creating SOPs
 - **Workflow discovery**: Scans `.opencode/workflows/**/WORKFLOW.md` in the current repo
@@ -72,7 +73,7 @@ Use workflows_create with name: "release-checklist" and body containing the SOP 
 # Install dependencies
 bun install
 
-# Build
+# Build (Linux/macOS only)
 bun run build
 
 # Watch mode

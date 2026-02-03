@@ -1,6 +1,6 @@
 {
   "name": "@howaboua/opencode-workflows-tool",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Enhanced skill tool plugin for OpenCode - 1:1 clone of built-in skill tool with extensibility",
   "type": "module",
   "main": "dist/index.js",
