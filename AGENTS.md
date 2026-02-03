@@ -8,10 +8,10 @@ Enhanced `workflows` plugin for OpenCode, enabling structured SOP discovery and 
 
 ## Build & Verification
 
-- Typecheck: `tsc --noEmit`
+- Typecheck: `npx tsc --noEmit`
 - Build: `bun run build`
 - Dry Run: `bun run workflow:dry-run`
-- **MANDATORY**: Verify all changes with `tsc --noEmit` before completion.
+- **MANDATORY**: Verify all changes with `npx tsc --noEmit` before completion.
 
 ## Plugin Architecture
 
@@ -34,7 +34,7 @@ Enhanced `workflows` plugin for OpenCode, enabling structured SOP discovery and 
 ## Process Constraints
 
 - MUST NOT run `bun run dev` or any long-running/blocking process.
-- MUST use one-shot verification: `tsc --noEmit` or `bun run build`.
+- MUST use one-shot verification: `npx tsc --noEmit` or `bun run build`.
 - MUST NOT modify `dist/` directly; always rebuild from `src/`.
 
 ## Code Conventions

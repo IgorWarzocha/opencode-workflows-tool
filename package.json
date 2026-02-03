@@ -1,6 +1,6 @@
 {
   "name": "@howaboua/opencode-workflows-tool",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Enhanced skill tool plugin for OpenCode - 1:1 clone of built-in skill tool with extensibility",
   "type": "module",
   "main": "dist/index.js",
@@ -13,11 +13,12 @@
   },
   "files": [
     "dist",
+    "skills",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "build": "bun build src/index.ts --outdir dist --target bun --sourcemap && tsc --emitDeclarationOnly",
+    "build": "echo '[build] Note: cp -r requires Unix (Linux/macOS)' && bun build src/index.ts --outdir dist --target bun --sourcemap && tsc --emitDeclarationOnly && cp -r skills dist/",
     "dev": "bun --watch src/index.ts",
     "prepublishOnly": "bun run build",
     "workflow:dry-run": "bun run scripts/workflows-dry-run.ts"
