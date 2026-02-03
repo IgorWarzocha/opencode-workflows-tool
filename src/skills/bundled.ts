@@ -21,7 +21,6 @@ type Config = Parameters<NonNullable<Hooks["config"]>>[0] & SkillsConfig
 
 const resolveBundledSkillPaths = async () => {
   const baseDir = path.dirname(fileURLToPath(import.meta.url))
-  // Candidates: dist/skills (prod), ../skills (prod from dist/), ../../skills (dev from src/skills/)
   const candidates = [
     path.join(baseDir, "skills"),
     path.join(baseDir, "..", "skills"),
