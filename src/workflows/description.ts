@@ -17,10 +17,9 @@ export const buildWorkflowCreateDescription = () => {
     "You SHOULD document prerequisites, ordered steps, and expected outcomes.",
     "You MAY include troubleshooting notes if failures occurred.",
     "If a workflow fails, you MUST surgically edit it and provide failure scenarios.",
-    "It is stored in .opencode/workflows.",
+    "It is stored in .opencode/workflows/*/WORKFLOW.md.",
   ].join(" ");
 };
-
 
 export const buildWorkflowLearnDescription = () => {
   return [

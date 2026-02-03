@@ -13,9 +13,10 @@ Capture session findings into a repeatable workflow (via workflows_create) and e
 </objective>
 
 <instructions>
-1. **Document Session**: Analyze what was done, what worked, and what to avoid. Use \`workflows_create\` to save this as a new workflow or update an existing one.
-2. **Auto-Detect Scope**: Prefer creating/editing a nested \`AGENTS.md\` in the specific subdirectory where work occurred (OpenCode auto-loads these when entering subdirs). Use the root only for global procedures.
-3. **Format Rule**: Add/append exactly: "When operating in this directory you MUST consider loading these workflows:" followed by a concise list of relevant workflow names.
+1. **Load Workflows Skill**: Use the skill tool to load the \`workflows\` skill before continuing.
+2. **Document Session**: Analyze what was done, what worked, and what to avoid. Use \`workflows_create\` to save this as a new workflow or update an existing one.
+3. **Auto-Detect Scope**: Prefer creating/editing a nested \`AGENTS.md\` in the specific subdirectory where work occurred (OpenCode auto-loads these when entering subdirs). Use the root only for global procedures.
+4. **Format Rule**: Add/append exactly: "When operating in this directory you MUST consider loading these workflows:" followed by a concise list of relevant workflow names.
 </instructions>
 
 <rules>

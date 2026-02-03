@@ -13,11 +13,12 @@
   },
   "files": [
     "dist",
+    "skills",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "build": "bun build src/index.ts --outdir dist --target bun --sourcemap && tsc --emitDeclarationOnly",
+    "build": "bun build src/index.ts --outdir dist --target bun --sourcemap && tsc --emitDeclarationOnly && cp -r skills dist/",
     "dev": "bun --watch src/index.ts",
     "prepublishOnly": "bun run build",
     "workflow:dry-run": "bun run scripts/workflows-dry-run.ts"
