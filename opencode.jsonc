@@ -1,4 +1,5 @@
 {
+  // DEV ONLY: This file is for local development. Update the path to match your environment.
   "$schema": "https://opencode.ai/config.json",
   "plugin": ["file:///home/igorw/Work/opencode-plugins-dev/opencode-skill-tool-enhanced/dist/index.js"]
 }

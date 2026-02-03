@@ -18,7 +18,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "bun build src/index.ts --outdir dist --target bun --sourcemap && tsc --emitDeclarationOnly && cp -r skills dist/",
+    "build": "echo '[build] Note: cp -r requires Unix (Linux/macOS)' && bun build src/index.ts --outdir dist --target bun --sourcemap && tsc --emitDeclarationOnly && cp -r skills dist/",
     "dev": "bun --watch src/index.ts",
     "prepublishOnly": "bun run build",
     "workflow:dry-run": "bun run scripts/workflows-dry-run.ts"
